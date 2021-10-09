@@ -1,22 +1,29 @@
 import React from 'react';
 import Avatar from '../Avatar/Avatar';
+import './AvatarList.scss';
 
-export default function AvatarList(props) {
+export default function AvatarList({
+  avatars,
+  onAvatarSelect,
+  selectedAvatar,
+  isLoading,
+  loadingAvatar,
+}) {
   return (
     <div>
       <h3 className="text-center choose-avatar-header">Choose your avatar</h3>
       <ul className="avatar-list">
-        {props.avatars.map((avatar) => (
+        {avatars.map((avatar) => (
           <li key={avatar.id}>
-            {props.isLoading && props.loadingAvatar === avatar && (
-              <div className="loading-spinner"></div>
+            {isLoading && loadingAvatar === avatar && (
+              <div className="loading-spinner" />
             )}
             <Avatar
-              className={props.selectedAvatar === avatar ? 'active' : ''}
-              onClick={() => props.onAvatarSelect(avatar)}
+              className={selectedAvatar === avatar ? 'active' : ''}
+              onClick={() => onAvatarSelect(avatar)}
               onKeyDown={(e) => {
                 if (e.keyCode === 13) {
-                  props.onAvatarSelect(avatar);
+                  onAvatarSelect(avatar);
                 }
               }}
               avatar={avatar}

@@ -1,105 +1,86 @@
-import React, { Component } from 'react';
-import { CSSTransition } from 'react-transition-group';
+import React, { useState } from 'react';
+import { Animated } from 'react-animated-css';
+import onClickOutside from 'react-onclickoutside';
 import Avatar from '../Avatar/Avatar';
 import AvatarList from '../AvatarList/AvatarList';
 import Popover from '../Popover/Popover';
+import './AvatarPicker.scss';
 
-export default class AvatarPicker extends Component {
-  constructor(props) {
-    super(props);
+function AvatarPicker(props) {
+  const [selectedAvatar, setSelectedAvatar] = useState(props.avatars[0]);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingAvatar, setLoadingAvatar] = useState(null);
 
-    this.state = {
-      selectedAvatar: props.avatars[0],
-      isPopoverOpen: false,
-      isLoading: false,
-      loadingAvatar: null,
-    };
+  Avatar.handleClickOutside = () => closePopover();
 
-    this.togglePopover = this.togglePopover.bind(this);
-    this.onAvatarSelect = this.onAvatarSelect.bind(this);
-    this.closePopover = this.closePopover.bind(this);
-    this.openPopover = this.openPopover.bind(this);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-  }
-
-  handleClickOutside(e) {
-    this.closePopover();
-  }
-
-  togglePopover() {
-    if (!this.state.isPopoverOpen) {
-      this.openPopover();
+  const togglePopover = () => {
+    if (!isPopoverOpen) {
+      openPopover();
     } else {
-      this.closePopover();
+      closePopover();
     }
-  }
+  };
 
-  openPopover() {
-    this.setState({
-      isPopoverOpen: true,
-    });
-  }
+  const openPopover = () => {
+    setIsPopoverOpen(true);
+  };
 
-  closePopover() {
-    this.setState({
-      isPopoverOpen: false,
-    });
-  }
+  const closePopover = () => {
+    setIsPopoverOpen(false);
+  };
 
-  onAvatarSelect(selectedAvatar) {
-    if (selectedAvatar === this.state.selectedAvatar) {
+  const onAvatarSelect = (selectedAvatar) => {
+    if (setSelectedAvatar === selectedAvatar) {
       return;
     }
-    this.setState({
-      isLoading: true,
-      loadingAvatar: selectedAvatar,
-    });
+    setIsLoading(true);
+    setLoadingAvatar(selectedAvatar);
 
     setTimeout(() => {
-      this.setState({
-        isPopoverOpen: false,
-        selectedAvatar,
-        isLoading: false,
-        loadingAvatar: null,
-      });
+      setIsPopoverOpen(false);
+      setSelectedAvatar(selectedAvatar);
+      setIsLoading(false);
+      setLoadingAvatar(null);
     }, 1000);
-  }
+  };
 
-  render() {
-    return (
-      <>
-        <div className="avatar-picker">
-          <div className="header text-center">
-            <Avatar
-              onClick={this.togglePopover}
-              onKeyDown={(e) => {
-                if (e.keycode === 13) {
-                  this.togglePopover();
-                }
-              }}
-              className={`selected-avatar ${
-                this.state.isPopoverOpen ? 'active' : ''
-              }`}
-              avatar={this.state.selectedAvatar}
-            />
-
-            <CSSTransition
-              classNames="fade"
-              timeout={{ enter: 500, exit: 300 }}
-            >
-              <Popover>
-                <AvatarList
-                  avatars={this.props.avatars}
-                  onAvatarSelect={this.onAvatarSelect}
-                  selectedAvatar={this.state.selectedAvatar}
-                  isLoading={this.state.isLoading}
-                  loadingAvatar={this.state.loadingAvatar}
-                />
-              </Popover>
-            </CSSTransition>
-          </div>
-        </div>
-      </>
-    );
-  }
+  return (
+    <div className="avatar-picker">
+      <div className="header text-center">
+        <Avatar
+          onClick={togglePopover}
+          onKeyDown={(e) => {
+            if (e.keyCode === 13) {
+              togglePopover();
+            }
+          }}
+          className={`selected-avatar ${isPopoverOpen ? 'active' : ''}`}
+          avatar={selectedAvatar}
+        />
+      </div>
+      <Animated
+        animationIn="bounceIn"
+        animationOut="zoomOut"
+        isVisible={isPopoverOpen}
+        animateOnMount={false}
+      >
+        <Popover>
+          <AvatarList
+            avatars={props.avatars}
+            onAvatarSelect={onAvatarSelect}
+            selectedAvatar={selectedAvatar}
+            isLoading={isLoading}
+            loadingAvatar={loadingAvatar}
+          />
+        </Popover>
+      </Animated>
+    </div>
+  );
 }
+
+const clickOutsideConfig = {
+  handleClickOutside: () => Avatar.handleClickOutside,
+};
+
+export default onClickOutside(AvatarPicker, clickOutsideConfig);

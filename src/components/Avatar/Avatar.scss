@@ -1,0 +1,44 @@
+/* ===========================================================
+   Avatar component 
+   =========================================================== */
+
+.avatar-container {
+  height: 60px;
+  width: 60px;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  border: 3px solid transparent;
+  z-index: 1;
+
+  &:hover,
+  &:focus {
+    border: 3px solid rgba(155, 160, 163);
+
+    & .overlay {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(122, 161, 178, 0.2);
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+    }
+  }
+
+  &.active {
+    border: 3px solid rgba(155, 160, 163);
+  }
+}
+
+.avatar-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}

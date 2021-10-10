@@ -1,5 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import './Avatar.scss';
+
+
 
 export default function Avatar({ className, onClick, onKeyDown, avatar }) {
   return (
@@ -14,3 +18,8 @@ export default function Avatar({ className, onClick, onKeyDown, avatar }) {
     </div>
   );
 }
+
+Avatar.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  onKeyDown: PropTypes.func.isRequired,
+};

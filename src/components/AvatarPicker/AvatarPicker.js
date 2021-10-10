@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Animated } from 'react-animated-css';
 import onClickOutside from 'react-onclickoutside';
 import Avatar from '../Avatar/Avatar';
@@ -84,3 +85,7 @@ const clickOutsideConfig = {
 };
 
 export default onClickOutside(AvatarPicker, clickOutsideConfig);
+
+AvatarPicker.propTypes = {
+  avatars: PropTypes.arrayOf(PropTypes.object).isRequired,
+};

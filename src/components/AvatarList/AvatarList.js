@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Avatar from '../Avatar/Avatar';
 import './AvatarList.scss';
+
 
 export default function AvatarList({
   avatars,
@@ -34,3 +36,8 @@ export default function AvatarList({
     </div>
   );
 }
+
+
+AvatarList.propTypes = {
+  avatars: PropTypes.array.isRequired,
+};

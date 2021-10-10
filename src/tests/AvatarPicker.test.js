@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import AvatarPicker from '../components/AvatarPicker/AvatarPicker';
-import avatars from '../data/avatars';
+import AVATARS from '../data/AVATARS';
 
 describe('AvatarPicker', () => {
   let props;
@@ -15,14 +15,14 @@ describe('AvatarPicker', () => {
 
   beforeEach(() => {
     props = {
-      avatars: avatars,
+      avatars: AVATARS,
     };
     mountedAvatarPicker = undefined;
   });
 
   it('renders all avatars', () => {
     const avatars = avatarPicker().find('img');
-    expect(avatars.length).toBeGreaterThan(avatars.length);
+    expect(avatars.length).toBeGreaterThan(AVATARS.length);
   });
 
   it('has one selectedAvatar', () => {

@@ -1,4 +1,4 @@
-const avatars = [
+const AVATARS = [
   { src: 'assets/avatars/avatar1.png', label: 'Avatar 1', id: 1 },
   { src: 'assets/avatars/avatar5.png', label: 'Avatar 2', id: 2 },
   { src: 'assets/avatars/avatar2.png', label: 'Avatar 3', id: 3 },
@@ -7,4 +7,4 @@ const avatars = [
   { src: 'assets/avatars/avatar5.png', label: 'Avatar 6', id: 6 },
 ];
 
-export default avatars;
+export default AVATARS;

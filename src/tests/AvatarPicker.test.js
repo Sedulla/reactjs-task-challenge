@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import AvatarPicker from '../components/AvatarPicker/AvatarPicker';
-import AVATARS from '../data/AVATARS';
+import AVATARS from '../data/avatars';
 
 describe('AvatarPicker', () => {
   let props;

@@ -1,5 +1,5 @@
 import React from 'react';
-import AVATARS from './data/AVATARS'
+import AVATARS from './data/avatars'
 import AvatarPicker from './components/AvatarPicker/AvatarPicker';
 import './App.scss';
 
